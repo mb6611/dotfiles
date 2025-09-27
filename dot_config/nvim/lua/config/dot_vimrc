@@ -1,0 +1,18 @@
+
+" git gutter jump to next hunk
+nmap <Leader>hn <Plug>(GitGutterNextHunk)
+
+" Customize git diff highlight colors
+highlight GitGutterAdd    guifg=#00ff00 ctermfg=2
+highlight GitGutterChange guifg=#ffff00 ctermfg=3
+highlight GitGutterDelete guifg=#ff0000 ctermfg=1
+nmap <Leader>gn <Plug>(GitGutterNextHunk)
+nmap <Leader>gp <Plug>(GitGutterPrevHunk)
+highlight DiffText   ctermfg=Blue guifg=Blue     " Text differences
+
+" Additional highlight settings
+highlight Todo       ctermfg=Yellow guifg=Yellow ctermbg=NONE guibg=NONE
+highlight Error      ctermfg=Red guifg=Red ctermbg=NONE guibg=NONE
+highlight Warning    ctermfg=Orange guifg=Orange ctermbg=NONE guibg=NONE
+highlight Info       ctermfg=Cyan guifg=Cyan ctermbg=NONE guibg=NONE
+highlight Hint       ctermfg=Green guifg=Green ctermbg=NONE guibg=NONE

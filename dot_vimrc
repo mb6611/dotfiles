@@ -1,0 +1,780 @@
+" QUICK CONFIG
+"let g:airline_theme='cobalt2'
+"let g:airline_theme='dracula'
+
+set nocompatible
+exe 'set rtp+=' . $VIMCONFIG
+
+call plug#begin('~/.config/nvim/plugged')
+
+" Editing
+Plug 'preservim/nerdcommenter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'nanotee/zoxide.vim'
+set rtp+=/usr/local/opt/fzf
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+Plug 'github/copilot.vim' 
+"<------------- note: right now there is a weird bug
+"that makes you need to comment it out to use it
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'jvgrootveld/telescope-zoxide'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'jbyuki/instant.nvim'
+Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'iamcco/coc-tailwindcss',  {'do': 'yarn install --frozen-lockfile && yarn run build'}
+Plug 'hkupty/iron.nvim'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/vim-emoji'
+Plug 'dhruvasagar/vim-table-mode'
+
+""Notifications
+Plug 'rcarriga/nvim-notify'
+
+""VimTex
+""" vim-plug
+Plug 'lervag/vimtex'
+
+""UltiSnips
+Plug 'sirver/ultisnips'
+Plug 'KeitaNakamura/tex-conceal.vim'
+
+""Obsidian
+Plug 'epwalsh/obsidian.nvim'
+"
+"https://socket.dev/npm/package/@yaegassy/coc-tailwindcss3 <--------- USE THIS ONE 
+"Plug 'chriskempson/base16-vim'
+
+"Commenting for tsx
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'numToStr/Comment.nvim'
+
+" Deps
+"Plug 'stevearc/dressing.nvim'
+"Plug 'nvim-lua/plenary.nvim'
+"Plug 'MunifTanjim/nui.nvim'
+
+"" Optional deps
+"Plug 'nvim-tree/nvim-web-devicons' "or Plug 'echasnovski/mini.icons'
+"Plug 'HakonHarnes/img-clip.nvim'
+"Plug 'zbirenbaum/copilot.lua'
+
+"" Yay, pass source=true if you want to build from source
+""Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+""Plug 'yetone/avante.nvim', { 'branch': 'main', 'source': 'true', 'do': { -> avante#build() }, 'on': 'AvanteAsk' }
+"Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': { -> avante#build('source=true') }}
+""autocmd! User avante.nvim lua require('avante_lib').load()
+"
+
+
+" Deps
+Plug 'stevearc/dressing.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+
+" Optional deps
+Plug 'nvim-tree/nvim-web-devicons' "or Plug 'echasnovski/mini.icons'
+Plug 'HakonHarnes/img-clip.nvim'
+"Plug 'zbirenbaum/copilot.lua'
+
+" Yay, pass source=true if you want to build from source
+Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': { -> avante#build('source=true') } }
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+"Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+
+
+imap <C-f> <Plug>(fzf-complete-line)
+nmap <C-f> :Lines<return>
+
+" Non-buffer overwrite keybinds
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+nnoremap <leader>D "_D
+vnoremap <leader>D "_D
+nnoremap <leader>c "_c
+vnoremap <leader>c "_c
+nnoremap <leader>C "_C
+vnoremap <leader>C "_C
+nnoremap <leader>x "_x
+vnoremap <leader>x "_x
+nnoremap <leader>X "_X
+vnoremap <leader>X "_X
+
+
+let g:coc_node_path = trim(system('which node'))
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
+"Decent
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'wadackel/vim-dogrun'
+"Favorite so far:
+Plug 'shapeoflambda/dark-purple.vim' " rec
+Plug 'arzg/vim-colors-xcode'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'ayu-theme/ayu-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
+Plug 'sainnhe/gruvbox-material'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+
+"   HUD
+Plug 'luochen1990/rainbow'
+Plug 'airblade/vim-gitgutter'
+Plug 'rickhowe/diffchar.vim'
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '▏'
+let g:indentLine_conceallevel = 1
+let g:indentLine_concealcursor = 'nv'
+"   tmux integration
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'nathom/tmux.nvim'
+
+"- HUD Toggles
+Plug 'preservim/nerdtree'
+let g:rainbow_active=1 "set to 0 if you want to enable it later via :RainbowToggle
+let g:rainbow_conf = {
+\	'guifgs': ['magenta', 'cyan', 'orange', 'green', 'yellow'],
+\}
+
+let g:gitgutter_highlight_linenrs = 1 " auto highlight change line numbers
+let g:gitgutter_preview_win_floating = 0 " Disable floating/popup window for <Leader>hp
+
+" Rendering
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+Plug 'chrisbra/Colorizer'
+Plug 'jaxbot/semantic-highlight.vim'
+Plug 'folke/zen-mode.nvim'
+Plug 'folke/twilight.nvim'
+"Plug 'szymonmaszke/vimpyter'
+"
+Plug 'metakirby5/codi.vim'
+Plug 'junegunn/goyo.vim'
+
+"Plug 'godlygeek/tabular'
+"Plug 'preservim/vim-markdown'
+
+
+Plug 'folke/lazy.nvim'
+
+call plug#end()
+
+"luafile ~/.config/nvim/lua/config/avante.lua
+
+
+luafile ~/.config/nvim/lua/config/treesitter.lua
+luafile ~/.config/nvim/lua/config/avante.lua
+
+let g:codi#interpreters = {
+	    \ 'python': {
+		\ 'bin': 'python3',
+		\ 'prompt': '^\(>>>\|\.\.\.\) ',
+		\ },
+		\ }
+
+" Jupyter Notebook
+bu
+"autocmd Filetype ipynb nmap <silent><Leader>b :VimpyterInsertPythonBlock<CR>
+"autocmd Filetype ipynb nmap <silent><Leader>j :VimpyterStartJupyter<CR>
+"autocmd Filetype ipynb nmap <silent><Leader>l :VimpyterStartNteract<CR>
+
+" My Customs
+" " CUSTOM: change backup dir https://stackoverflow.com/a/1625850/10372825
+"set backupdir=$VIMCONFIG/autogentmp//
+"set directory=$VIMCONFIG/autogentmp//
+"set undodir=$VIMCONFIG/autogentmp//,~/.vim/autogentmp/undo//
+set nobackup
+set nowritebackup
+
+" jump to previous position https://stackoverflow.com/questions/774560/in-vim-how-do-i-get-a-file-to-open-at-the-same-line-number-i-closed-it-at-last
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+                \| exe "normal! g`\"" | endif
+endif
+
+"map <Leader>c <Plug>(easymotion-prefix)
+
+" from https://www.linode.com/docs/tools-reference/tools/introduction-to-vim-customization/
+set ttyfast " speed up scrolling
+set scrolloff=5 " display 8 lines above and below cursor at all ti
+set matchpairs+=<:>
+
+" autoread (https://vi.stackexchange.com/a/13092)
+set autoread
+au FocusGained,BufEnter * :checktime
+
+" passive and HUD
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+set number " line numbers
+set ruler " display current cursor "coordinates"
+set showmatch " highlight the matching bracket
+
+set nu rnu " reletive line nums
+
+function! ToggleLineNumbers()
+    if !exists('g:ToggleLineNumbersAutoGroupMarker')
+	let g:ToggleLineNumbersAutoGroupMarker = 1
+    endif
+
+    " Enable if the group was previously disabled
+    if (g:ToggleLineNumbersAutoGroupMarker == 1)
+	let g:ToggleLineNumbersAutoGroupMarker = 0
+
+	setlocal nu rnu
+
+	" actual augroup
+	augroup numbertoggle
+	    autocmd!
+	    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+	    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+	augroup END
+    else    " Clear the group if it was previously enabled
+	let g:ToggleLineNumbersAutoGroupMarker = 1
+
+	" resetting the augroup
+	augroup numbertoggle
+	    autocmd!
+	augroup END
+	setlocal nonu nornu
+    endif
+endfunction
+
+call ToggleLineNumbers()
+
+function s:CallableToggleLineNumbers()
+    setlocal nonu nornu
+    call ToggleLineNumbers()
+endfunction
+com! ToggleLineNumbers call s:CallableToggleLineNumbers()
+
+
+" show invisibles
+set encoding=utf-8
+"set listchars=eol:⏎,tab:·,trail:·,extends:>,precedes:<
+set nolist
+"set list
+
+" colors
+" fix neovim's weird highlight (https://github.com/neovim/neovim/issues/9019#issuecomment-521532103)
+function! s:CustomizeColors()
+	if has('guirunning') || has('termguicolors')
+		let cursorline_gui=''
+		let cursorline_cterm='ctermfg=white'
+	else
+		let cursorline_gui='guifg=white'
+		let cursorline_cterm=''
+	endif
+	exec 'hi CursorLine ' . cursorline_gui . ' ' . cursorline_cterm
+endfunction
+augroup OnColorScheme
+	autocmd!
+	autocmd ColorScheme,BufEnter,BufWinEnter * call s:CustomizeColors()
+augroup END
+
+" force vim to use true colors (https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be)
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+set termguicolors
+colo dark_purple
+
+hi Comment gui=NONE
+" allow opacity to work in alacritty
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+command OP call SetOpa()
+"command FI colo dark_purple
+
+function! SetOpa()
+    hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+    hi! Normal ctermbg=NONE guibg=NONE
+endfunction
+
+"set search stuff
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+" remove search highlight on escape
+" nnoremap <esc> :noh<return><esc>
+
+" tab sizing
+set shiftwidth=4
+set si " smart indent
+set expandtab
+
+" stop physical line wrapping
+" https://stackoverflow.com/questions/2280030/how-to-stop-line-breaking-in-vim
+set textwidth=0
+set wrapmargin=0
+
+" code folding: https://codeyarns.com/2014/09/02/how-to-fold-code-in-vim/
+"set foldmethod=indent
+set foldmethod=manual
+set foldlevelstart=5
+set nofoldenable
+"   persistent folds (https://til.hashrocket.com/posts/17c44eda91-persistent-folds-between-vim-sessions)
+augroup AutoSaveFolds
+  autocmd!
+  autocmd BufWinLeave * silent! mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
+" cursor stuff
+set mouse=a
+
+" background and performance
+set lazyredraw " don't redraw when executing macros
+set updatetime=100
+
+" Delete trailing white space on save, useful for some filetypes ;)
+" Stolen from https://github.com/nickmahd/.vim/blob/master/vimrc in Jan 2020
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.cpp :call CleanExtraSpaces()
+endif
+
+" custom keymaps
+let mapleader = " "
+set timeoutlen=500
+
+nnoremap q: <Nop>
+
+" nerd commenter
+nmap <Leader>t <Plug>NERDCommenterToggle
+xmap <Leader>t <Plug>NERDCommenterToggle
+
+" alternate delims for nerd commenter
+nmap <Leader>ta <Plug>NERDCommenterAltDelimsToggle
+xmap <Leader>ta <Plug>NERDCommenterAltDelimsToggle
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+"map cn to NERDTreeToggle
+nnoremap <Leader>n :NERDTreeToggle<CR>
+xnoremap <Leader>n :NERDTreeToggle<CR>
+
+" git gutter jump to next hunk
+nmap <Leader>hn <Plug>(GitGutterNextHunk)
+map ghn <Plug>(GitGutterNextHunk)
+nmap <Leader>hN <Plug>(GitGutterPrevHunk)
+nmap ghN <Plug>(GitGutterPrevHunk)
+nmap <Leader>HN <Plug>(GitGutterPrevHunk)
+
+" git gutter stage/revert hunk because the default seems to be broken...
+nmap <Leader>hs <Plug>(GitGutterStageHunk)
+nmap <Leader>hr <Plug>(GitGutterRevertHunk)
+
+"no escape key (escape pressing escape)
+inoremap jc <Esc>
+
+inoremap jf <Esc>:w<return>:<Backspace>
+inoremap jj <Esc>:w<return>:<Backspace>
+inoremap kk <Esc>:w<return>:<Backspace>
+inoremap jk <Esc>:w<return>:<Backspace>
+"inoremap kj <Esc>:w<return>:<Backspace>
+
+tnoremap jf <Esc> <C-\><C-n><cmd>lua IronFocusToggle()<CR>
+
+"tnoremap <Esc> <C-\><C-n>
+
+inoremap <C-c> <Esc>:w<return>
+command W w
+
+" print working file
+command PWF echo @%
+
+" source config
+command S source ~/.config/nvim/init.vim
+
+" find diff
+function! s:DiffWithSaved()
+    let filetype=&ft
+    diffthis
+    vnew | r # | normal! 1Gdd
+    diffthis
+    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
+" Colors!
+command COLH ColorHighlight
+command COLC ColorClear
+
+
+" Note mode
+function! s:Note()
+    setlocal spell
+    setlocal syntax=markdown
+    inoremap jf <Esc>
+    "ZenMode
+    call ToggleLineNumbers()
+    setlocal nonu nornu
+endfunction
+com! Note call s:Note()
+
+
+" clipboard https://coderwall.com/p/v-st8w/vim-copy-to-system-clipboard-on-a-mac
+xmap <Leader>y :w !pbcopy<CR><CR>
+nmap <Leader>y :w !pbcopy<CR><CR>
+nmap <Leader>yy :%w !pbcopy<CR><CR>
+"xmap <Leader>y :w !clip.exe<CR><CR>
+"nmap <Leader>y :w !clip.exe<CR><CR>
+"nmap <Leader>yf :%w !clip.exe<CR><CR>
+ "Map for copying the whole file content to the clipboard after encoding with iconv
+"nmap <Leader>y :w !iconv -f utf-8 -t utf-16le \| clip.exe<CR><CR>
+
+"" Map for copying selected text to the clipboard after encoding with iconv
+"vmap <Leader>y :w !iconv -f utf-8 -t utf-16le \| clip.exe<CR><CR>
+
+"" Map for copying the whole file content to the clipboard after encoding with iconv, without closing the buffer
+"nmap <Leader>yf :%w !iconv -f utf-8 -t utf-16le \| clip.exe<CR><CR>
+
+
+" split direction
+set splitbelow
+set splitright
+
+set cmdheight=1
+set signcolumn=yes
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline=　
+"set statusline=0
+
+
+" find files and such w/ telescope!
+" Find files using Telescope command-line sugar.
+
+
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fj <cmd>lua require ('telescope.builtin').git_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fz :Telescope zoxide list<cr>
+
+
+nnoremap <C-e> <C-^>
+
+" iron repl config
+luafile ~/.config/nvim/lua/config/iron.lua
+
+"   Completion window
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+"inoremap <expr><Esc> pumvisible() ? coc#pum#cancel() : ""
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+"set cot="menu,preview,longest"
+
+"   Coc Snippets
+imap <C-o> <Plug>(coc-snippets-expand)
+let g:coc_snippet_next = 'jn'
+let g:coc_snippet_prev = 'jh'
+
+"   Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" coc jump to error/warning
+nmap gn <Plug>(coc-diagnostic-next)
+nmap gN <Plug>(coc-diagnostic-prev)
+nmap ge <Plug>(coc-diagnostic-next-error)
+nmap gE <Plug>(coc-diagnostic-prev-error)
+nmap gf <Plug>(coc-fix-current)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+"autocmd CursorHold * silent call CocActionAsync('highlight') " FUCKED  FOR
+"SOME  REASONCOMMMENTED OUT FOR  NOW
+
+" Symbol renaming.
+nmap <Leader>rn <Plug>(coc-rename)
+nmap <Leader>rf <Plug>(coc-refactor)
+
+" Formatting selected code.
+xmap <Leader>f  <Plug>(coc-format-selected)
+nmap <Leader>f  <Plug>(coc-format-selected)
+"visual line keybind
+nmap <Leader>v V
+" better fold keybinds
+nmap <Leader>f za
+vnoremap <Leader>z zf
+"insert newline withough going into insert mode
+nnoremap <Leader>o o<Esc>k
+nnoremap <Leader>O O<Esc>j
+"better bracket jumping
+nmap <Leader>w %
+vmap <Leader>w %
+"line moving commands
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+noh
+
+set noshowmode
+set noshowcmd
+set shortmess+=F
+set laststatus=0
+set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
+
+"let g:copilot_node_command = \"~/.nvm/versions/node/v17.0.1/bin/node"
+"vim.g.copilot_no_tab_map = 1
+"imap <silent><script><expr> <Leader><Tab> copilot#Accept("\<CR>")
+"inoremap <expr> <Tab> pumvisible() ? \"\<C-n>" : copilot#Accept("<Tab>")
+"let g:copilot_no_tab_map = v:true
+let g:copilot_filetypes = {'markdown': v:true, 'yaml': v:true}
+
+command Tail call CocAction('extensionStats')
+
+let g:instant_username = "matt"
+
+"LaTeX
+nmap <leader>bb :w<cr> :!pdflatex %:r.tex && bibtex %:r.aux && pdflatex %:r.tex && pdflatex %:r.tex && rm %:r.aux %:r.log %:r.blg %:r.bbl<cr>
+nmap <leader>bv :!zathura %:r.pdf > /dev/null 2>&1 &<cr><cr>
+
+
+"VimTex
+" This is necessary for VimTeX to load properly. The "indent" is optional.
+" Note that most plugin managers will do this automatically.
+filetype plugin indent on
+
+" This enables Vim's an
+" Viewer options: One may configure the viewer either by specifying a built-in
+" viewer method:
+let g:vimtex_view_method = 'zathura'
+
+" Or with a generic interface:
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+
+" VimTeX uses latexmk as the default compiler backend. If you use it, which is
+" strongly recommended, you probably don't need to configure anything. If you
+" want another compiler backend, you can change it as follows. The list of
+" supported backends and further explanation is provided in the documentation,
+" see ":help vimtex-compiler".
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_quickfix_mode = 0
+let g:vimtex_quickfix_disable_warning_message = 1
+
+let g:vimtex_syntax_conceal_disable = 1
+
+" let g:vimtex_syntax_conceal = []
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger = 'vv'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+set conceallevel=0
+"set concealcursor=c
+"let g:tex_conceal='abdmg'
+"hi Conceal ctermbg=none
+
+"setlocal spell
+"set spelllang=en_us
+"inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+" set to 1, nvim will open the preview window after entering the Markdown buffer
+" default: 0
+let g:mkdp_auto_start = 0
+
+" set to 1, the nvim will auto close current preview window when changing
+" from Markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 1
+
+" set to 1, Vim will refresh Markdown when saving the buffer or
+" when leaving insert mode. Default 0 is auto-refresh Markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be used for all files,
+" by default it can be use in Markdown files only
+" default: 0
+let g:mkdp_command_for_global = 0
+
+" set to 1, the preview server is available to others in your network.
+" By default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page.
+" Useful when you work in remote Vim and preview on local browser.
+" For more details see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" for path with space
+" valid: `/path/with\ space/xxx`
+" invalid: `/path/with\\ space/xxx`
+" default: ''
+let g:mkdp_browser = ''
+
+" set to 1, echo preview page URL in command line when opening preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom Vim function name to open preview page
+" this function will receive URL as param
+" default is empty
+let g:mkdp_browserfunc = ''
+
+" options for Markdown rendering
+" mkit: markdown-it options for rendering
+" katex: KaTeX options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: whether to disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: means the cursor position is always at the middle of the preview page
+"   top: means the Vim top viewport always shows up at the top of the preview page
+"   relative: means the cursor position is always at relative positon of the preview page
+" hide_yaml_meta: whether to hide YAML metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+" content_editable: if enable content editable for preview page, default: v:false
+" disable_filename: if disable filename header for preview page, default: 0
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0,
+    \ 'toc': {}
+    \ }
+
+" use a custom Markdown style. Must be an absolute path
+" like '/Users/username/markdown.css' or expand('~/markdown.css')
+let g:mkdp_markdown_css = ''
+
+" use a custom highlight style. Must be an absolute path
+" like '/Users/username/highlight.css' or expand('~/highlight.css')
+let g:mkdp_highlight_css = ''
+
+" use a custom port to start server or empty for random
+let g:mkdp_port = ''
+
+" preview page title
+" ${name} will be replace with the file name
+let g:mkdp_page_title = '「${name}」'
+
+" use a custom location for images
+"let g:mkdp_images_path = /home/user/.markdown_images
+
+" recognized filetypes
+" these filetypes will have MarkdownPreview... commands
+let g:mkdp_filetypes = ['markdown']
+
+" set default theme (dark or light)
+" By default the theme is defined according to the preferences of the system
+let g:mkdp_theme = 'dark'
+
+" combine preview window
+" default: 0
+" if enable it will reuse previous opened preview window when you preview markdown file.
+" ensure to set let g:mkdp_auto_close = 0 if you have enable this option
+let g:mkdp_combine_preview = 0
+
+" auto refetch combine preview contents when change markdown buffer
+" only when g:mkdp_combine_preview is 1
+let g:mkdp_combine_preview_auto_refresh = 1
+
+" enable syntax highlighting for markdown code blocks
+let g:markdown_fenced_languages = ['html', 'python', 'lua', 'vim', 'typescript', 'javascript', 'c', 'asm', 'perl', 'tex']
+
+"let g:vim_markdown_math = 1
+
+"Twilight mode
+nnoremap <leader>z :Twilight<CR>
+
+"let g:airline_theme='dracula'
+"let g:airline_theme='base16_gruvbox_light_hard'
+let g:airline_theme='base16_gruvbox_dark_hard'
+"let g:airline_theme='base16_gruvbox_dark_hard'
+"let g:airline_theme='cobalt2'
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#branch#enabled = 1
+colorscheme dark_purple
+
+let g:gruvbox_sign_column= 'bg0'
+let g:gruvbox_contrast_dark = 'hard'
+"colorscheme gruvbox
+"set background=light
+set background=dark
+
+"colorscheme gruvbox8
+"colorscheme gruvbox-material
+
+set completefunc=emoji#complete
+
+" revert to original cursor setting (a bit scuffed but it works)
+autocmd VimLeave * set guicursor=a:ver25-blinkwait700-blinkon400-blinkoff250-Cursor/lCursor
+
+
+" obsidian.nvim
+"luafile ~/.config/nvim/lua/config/obsidian.lua
+
+
+
+
+" markdown highlighting
+"
+highlight htmlBold gui=bold guifg=#fabd2f ctermfg=124
+highlight htmlItalic gui=italic guifg=#ff8700 ctermfg=214

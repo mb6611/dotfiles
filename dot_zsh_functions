@@ -1,0 +1,29 @@
+pandocpdf() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: pandocpdf input.md output.pdf"
+    return 1
+  fi
+  pandoc "$1" -o "$2" --pdf-engine=pdflatex --pdf-engine-opt="-interaction=nonstopmode"
+}
+
+pandoc2tex() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: pandoc2tex input.md output.tex"
+    return 1
+  fi
+  pandoc "$1" -o "$2" --pdf-engine=pdflatex --pdf-engine-opt="-interaction=nonstopmode"
+}
+
+OBSIDIAN_VAULT="Matthew-Banaag"
+obsidian() {
+    if [ "$#" -ne 1 ]; then
+	echo "Usage: obsidian path/to/file"
+	return 1
+    fi
+    open "obsidian://open?vault=$OBSIDIAN_VAULT&file=$1"
+}
+
+pdfcompress ()
+{
+   gs -q -dNOPAUSE -dBATCH -dSAFER -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dPDFSETTINGS=/screen -dEmbedAllFonts=true -dSubsetFonts=true -dColorImageDownsampleType=/Bicubic -dColorImageResolution=144 -dGrayImageDownsampleType=/Bicubic -dGrayImageResolution=144 -dMonoImageDownsampleType=/Bicubic -dMonoImageResolution=144 -sOutputFile=$1.compressed.pdf $1; 
+}

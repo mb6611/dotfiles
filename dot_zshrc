@@ -1,0 +1,117 @@
+# ~/.zshrc
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+
+# Alias definitions.
+if [ -f ~/.zsh_aliases ]; then
+    source "$HOME/.zsh_aliases"
+fi
+
+# brew
+export PATH="/opt/homebrew/bin:$PATH"
+
+# editor
+export EDITOR='nvim'
+
+# Auto-suggestions for `zsh`
+autoload -U compinit; compinit
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+# configure nvm (node version manager)
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+
+# initialize cargo (package installer)
+source "$HOME/.cargo/env"
+
+# initialize zoxide
+eval "$(zoxide init zsh)"
+
+# spotify tui and spotifyd
+#chmod +x /scripts/launchspt.sh
+#alias launchspt='/scripts/launchspt.sh' # this runs the spotifyd daemon automatically upon opening spotify
+
+# theming terminal colors
+export LS_COLORS="$(vivid generate tokyonight-moon)"
+
+# modifying the terminal prompt (user@host <filename> λ)
+export PROMPT='%n@%m %~ %F{red}λ%f '
+
+# path definitions.
+if [ -f ~/.zsh_path ]; then
+    source "$HOME/.zsh_path"
+fi
+
+# pnpm
+export PNPM_HOME="/Users/1unoe/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# go
+export GOPATH="$HOME/go"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/1unoe/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/1unoe/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/1unoe/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/1unoe/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+if [[ -n "$TMUX" ]] then
+  export flavor='conda'
+  source $HOME/.tmux/plugins/tmux-conda-inherit/conda-inherit.sh
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/1unoe/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/1unoe/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/1unoe/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/1unoe/google-cloud-sdk/completion.zsh.inc'; fi
+
+#export OPENAI_API_KEY="$(security find-generic-password -s 'avante.nvim' -a '' -w)"
+
+export PATH=$PATH:/Users/1unoe/.spicetify
+
+export K9S_FEATURE_GATE_NODE_SHELL="true"
+
+export PATH="$HOME/.local/bin:$PATH"
+
+# bun completions
+[ -s "/Users/1unoe/.bun/_bun" ] && source "/Users/1unoe/.bun/_bun"
+
+# gcloud auth
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+export KUBE_PS1_SYMBOL_ENABLE=true
+export KUBE_PS1_CLUSTER_ENABLE=false
+export KUBE_PS1_CONTEXT_ENABLE=true
+export KUBE_PS1_NAMESPACE_ENABLE=false
+export KUBE_PS1_NS_ENABLE=false
+export KUBE_PS1_SEPARATOR=' '
+export KUBE_PS1_DIVIDER=' '
+export KUBE_PS1_PREFIX='('
+export KUBE_PS1_SUFFIX=')'
+export KUBE_PS1_SMALL_MODE=true
+export KUBE_PS1_SYMBOL_ENABLE=false
+export KUBE_PS1_SYMBOL_PADDING=false
+source $(brew --prefix kube-ps1)/share/kube-ps1.sh
+export PS1='$(kube_ps1)'$PS1
+
+export DISPLAY=:0
+export PATH="$HOME/.local/bin:$PATH"
