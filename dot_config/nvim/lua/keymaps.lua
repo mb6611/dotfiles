@@ -87,3 +87,19 @@ vim.api.nvim_create_user_command("Note", function()
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
 end, {})
+
+-- Terminal commands
+-- Open horizontal terminal split
+vim.keymap.set("n", "<leader>th", function()
+  vim.cmd("split | terminal")
+  vim.cmd("startinsert")
+end, { desc = "Terminal (horizontal split)" })
+
+-- Open vertical terminal split
+vim.keymap.set("n", "<leader>tv", function()
+  vim.cmd("vsplit | terminal")
+  vim.cmd("startinsert")
+end, { desc = "Terminal (vertical split)" })
+
+-- Exit terminal mode
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
