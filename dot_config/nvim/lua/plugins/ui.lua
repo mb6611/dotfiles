@@ -13,12 +13,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
       -- Disable mini.indentscope *locally*
       vim.b[buf].miniindentscope_disable = true
 
-      -- Clean UI
-      vim.opt_local.number = false
-      vim.opt_local.relativenumber = false
-      vim.opt_local.signcolumn = "no"
-      vim.opt_local.cursorline = false
-      vim.opt_local.colorcolumn = ""
     end
   end,
 })
