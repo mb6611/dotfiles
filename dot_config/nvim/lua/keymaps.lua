@@ -1,0 +1,89 @@
+-- Keymaps (converted from keymaps.vim)
+
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+-- Disable ex mode
+map("n", "q:", "<Nop>", opts)
+
+-- Delete to black hole register (non-buffer overwrite)
+map({ "n", "v" }, "<leader>d", '"_d', opts)
+map({ "n", "v" }, "<leader>D", '"_D', opts)
+map({ "n", "v" }, "<leader>c", '"_c', opts)
+map({ "n", "v" }, "<leader>C", '"_C', opts)
+map({ "n", "v" }, "<leader>x", '"_x', opts)
+map({ "n", "v" }, "<leader>X", '"_X', opts)
+
+-- Insert mode escape alternatives
+map("i", "jc", "<Esc>", opts)
+map("i", "jf", "<Esc>:w<CR>", opts)
+map("i", "jj", "<Esc>:w<CR>", opts)
+map("i", "kk", "<Esc>:w<CR>", opts)
+map("i", "jk", "<Esc>:w<CR>", opts)
+map("i", "<C-c>", "<Esc>:w<CR>", opts)
+
+-- Switch to alternate buffer
+map("n", "<C-e>", "<C-^>", opts)
+
+-- Visual line
+map("n", "<leader>v", "V", opts)
+
+-- Folding
+map("n", "<leader>f", "za", opts)
+map("v", "<leader>z", "zf", opts)
+
+-- Insert newline without entering insert mode
+map("n", "<leader>o", "o<Esc>k", opts)
+map("n", "<leader>O", "O<Esc>j", opts)
+
+-- Bracket jumping
+map({ "n", "v" }, "<leader>w", "%", opts)
+
+-- Line moving (Alt+j/k)
+map("n", "<A-j>", ":m .+1<CR>==", opts)
+map("n", "<A-k>", ":m .-2<CR>==", opts)
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+
+-- Clipboard (macOS)
+map({ "n", "x" }, "<leader>y", ":w !pbcopy<CR><CR>", opts)
+map("n", "<leader>yy", ":%w !pbcopy<CR><CR>", opts)
+
+-- Telescope mappings
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
+map("n", "<leader>fj", "<cmd>Telescope git_files<cr>", opts)
+map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", opts)
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts)
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", opts)
+map("n", "<leader>fz", "<cmd>Telescope zoxide list<cr>", opts)
+
+-- LaTeX shortcuts
+map("n", "<leader>bb", ":w<cr>:!pdflatex %:r.tex && bibtex %:r.aux && pdflatex %:r.tex && pdflatex %:r.tex && rm %:r.aux %:r.log %:r.blg %:r.bbl<cr>", opts)
+map("n", "<leader>bv", ":!zathura %:r.pdf > /dev/null 2>&1 &<cr><cr>", opts)
+
+-- Twilight toggle
+map("n", "<leader>z", "<cmd>Twilight<CR>", opts)
+
+-- Commands
+vim.api.nvim_create_user_command("W", "w", {})
+vim.api.nvim_create_user_command("PWF", function() print(vim.fn.expand("%")) end, {})
+vim.api.nvim_create_user_command("S", "source ~/.config/nvim/init.lua", {})
+
+-- DiffWithSaved command
+vim.api.nvim_create_user_command("DiffSaved", function()
+  local filetype = vim.bo.filetype
+  vim.cmd("diffthis")
+  vim.cmd("vnew | r # | normal! 1Gdd")
+  vim.cmd("diffthis")
+  vim.cmd("setlocal bt=nofile bh=wipe nobl noswf ro ft=" .. filetype)
+end, {})
+
+-- Note mode command
+vim.api.nvim_create_user_command("Note", function()
+  vim.opt_local.spell = true
+  vim.opt_local.syntax = "markdown"
+  vim.opt_local.number = false
+  vim.opt_local.relativenumber = false
+end, {})
