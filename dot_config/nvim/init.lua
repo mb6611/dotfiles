@@ -14,6 +14,6 @@ vim.g.maplocalleader = " "
 require("options")
 require("autocmds")
 require("keymaps")
-
+--
 -- Bootstrap lazy.nvim and load plugins
 require("plugins")
