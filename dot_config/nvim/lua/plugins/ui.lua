@@ -1,4 +1,29 @@
 -- UI plugins
+
+-- Clean UI inside terminal buffers
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function(args)
+    local buf = args.buf
+    -- Only modify *real terminal* buffers
+    if vim.api.nvim_buf_get_option(buf, "buftype") == "terminal" then
+
+      -- Disable indent-blankline *locally*
+      vim.b[buf].ibl_disabled = true
+
+      -- Disable mini.indentscope *locally*
+      vim.b[buf].miniindentscope_disable = true
+
+      -- Clean UI
+      vim.opt_local.number = false
+      vim.opt_local.relativenumber = false
+      vim.opt_local.signcolumn = "no"
+      vim.opt_local.cursorline = false
+      vim.opt_local.colorcolumn = ""
+    end
+  end,
+})
+
+
 return {
   -- Status line
   {
