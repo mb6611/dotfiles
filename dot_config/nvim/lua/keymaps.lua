@@ -90,16 +90,17 @@ end, {})
 
 -- Terminal commands
 -- Open horizontal terminal split
-vim.keymap.set("n", "<leader>th", function()
+vim.keymap.set("n", "<leader>ts", function()
   vim.cmd("split | terminal")
   vim.cmd("startinsert")
 end, { desc = "Terminal (horizontal split)" })
 
 -- Open vertical terminal split
-vim.keymap.set("n", "<leader>tv", function()
+vim.keymap.set("n", "<leader>ti", function()
   vim.cmd("vsplit | terminal")
   vim.cmd("startinsert")
 end, { desc = "Terminal (vertical split)" })
 
 -- Exit terminal mode
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+-- terminal escape
+vim.keymap.set("t", "jj", [[<C-\><C-n>]], { noremap = true })
