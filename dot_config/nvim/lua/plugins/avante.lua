@@ -36,6 +36,12 @@ return {
       "nvim-tree/nvim-web-devicons",
       "HakonHarnes/img-clip.nvim",
       "MeanderingProgrammer/render-markdown.nvim",
+      "nvim-mini/mini.pick", -- for file_selector provider mini.pick
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
+      "folke/snacks.nvim", -- for input provider snacks
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
     },
     opts = {
       provider = "openai",
