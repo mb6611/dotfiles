@@ -103,7 +103,7 @@ end, { desc = "Terminal (vertical split)" })
 
 -- Exit terminal mode
 -- terminal escape
-vim.keymap.set("t", "jk", [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set("t", "xx", [[<C-\><C-n>]], { noremap = true })
 
 
 -- Diagnostic popup on demand
