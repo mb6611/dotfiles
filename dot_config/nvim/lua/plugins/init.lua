@@ -28,7 +28,7 @@ require("lazy").setup({
     { import = "plugins.iron" },
     { import = "plugins.avante" },
     { import = "plugins.markdown" },
-    { import = "plugins.obsidian" },
+    -- { import = "plugins.obsidian" },
   },
   defaults = { lazy = false },
   install = { colorscheme = { "dark_purple", "habamax" } },

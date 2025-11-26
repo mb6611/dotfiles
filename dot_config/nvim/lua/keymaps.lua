@@ -104,3 +104,25 @@ end, { desc = "Terminal (vertical split)" })
 -- Exit terminal mode
 -- terminal escape
 vim.keymap.set("t", "jj", [[<C-\><C-n>]], { noremap = true })
+
+
+-- Diagnostic popup on demand
+vim.keymap.set("n", "<leader>d", function()
+  vim.diagnostic.open_float(nil, {
+    focus = false,
+    border = "rounded",
+    source = "always",
+  })
+end, { desc = "Show diagnostic popup" })
+
+-- Global diagnostic keymaps
+vim.keymap.set("n", "]g", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+vim.keymap.set("n", "[g", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+
+vim.keymap.set("n", "]G", function()
+  vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { desc = "Next error" })
+
+vim.keymap.set("n", "[G", function()
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, { desc = "Prev error" })
