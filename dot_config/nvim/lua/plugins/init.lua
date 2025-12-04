@@ -26,7 +26,7 @@ require("lazy").setup({
     { import = "plugins.treesitter" },
     { import = "plugins.comment" },
     { import = "plugins.iron" },
-    { import = "plugins.avante" },
+    -- { import = "plugins.avante" },
     { import = "plugins.markdown" },
     -- { import = "plugins.obsidian" },
   },
