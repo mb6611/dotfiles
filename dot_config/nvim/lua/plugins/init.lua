@@ -15,7 +15,9 @@ vim.opt.rtp:prepend(lazypath)
 -- Load plugins
 require("lazy").setup({
   spec = {
-    { import = "plugins.claude" },
+    -- { import = "plugins.claude" },
+    -- { import = "plugins.claudecode" },  -- Disabled: Use plugins.claude-multi instead for multi-session support
+    { import = "plugins.claude-multi" },   -- Multi-session Claude Code manager
     { import = "plugins.colorscheme" },
     { import = "plugins.editor" },
     { import = "plugins.ui" },
@@ -28,6 +30,7 @@ require("lazy").setup({
     { import = "plugins.iron" },
     -- { import = "plugins.avante" },
     { import = "plugins.markdown" },
+    { import = "plugins.neoscroll" },
     -- { import = "plugins.obsidian" },
   },
   defaults = { lazy = false },

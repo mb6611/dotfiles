@@ -4,11 +4,12 @@ return {
     "nvim-lua/plenary.nvim", -- Required for git operations
   },
   config = function()
+    vim.keymap.set('n', '<leader><leader>E', '<cmd>ClaudeCodeResume<CR>', { desc = 'Toggle Claude Code' })
     require("claude-code").setup({
       -- Terminal window settings
       window = {
         split_ratio = 0.3,      -- Percentage of screen for the terminal window (height for horizontal, width for vertical splits)
-        position = "botright",  -- Position of the window: "botright", "topleft", "vertical", "float", etc.
+        position = "vertical",  -- Position of the window: "botright", "topleft", "vertical", "float", etc.
         enter_insert = true,    -- Whether to enter insert mode when opening Claude Code
         hide_numbers = true,    -- Hide line numbers in the terminal window
         hide_signcolumn = true, -- Hide the sign column in the terminal window
@@ -54,8 +55,8 @@ return {
       -- Keymaps
       keymaps = {
         toggle = {
-          normal = "<C-,>",       -- Normal mode keymap for toggling Claude Code, false to disable
-          terminal = "<C-,>",     -- Terminal mode keymap for toggling Claude Code, false to disable
+          normal = "<leader><leader>i",       -- Normal mode keymap for toggling Claude Code, false to disable
+          terminal = "<leader><leader>i",     -- Terminal mode keymap for toggling Claude Code, false to disable
           variants = {
             continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
             verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
