@@ -1,6 +1,41 @@
 -- Markdown and LaTeX
 return {
-  -- Markdown preview
+  -- In-buffer markdown rendering
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {
+      heading = {
+        enabled = true,
+        sign = false,
+        icons = {},
+        backgrounds = {},
+      },
+      code = {
+        enabled = true,
+        sign = false,
+        style = "normal",
+        border = "thin",
+      },
+      bullet = {
+        enabled = true,
+        icons = { "•", "◦", "▸", "▹" },
+      },
+      checkbox = {
+        enabled = true,
+        unchecked = { icon = "☐ " },
+        checked = { icon = "☑ " },
+      },
+      quote = { enabled = true },
+      pipe_table = { enabled = true, style = "full" },
+      win_options = {
+        conceallevel = { rendered = 2 },
+      },
+    },
+  },
+
+  -- Markdown preview (browser)
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
