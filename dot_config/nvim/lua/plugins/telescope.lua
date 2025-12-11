@@ -20,6 +20,18 @@ return {
     },
     opts = {
       defaults = {
+        layout_strategy = "flex",
+        layout_config = {
+          flex = {
+            flip_columns = 120, -- switch to vertical when width < 120
+          },
+          horizontal = {
+            preview_width = 0.5,
+          },
+          vertical = {
+            preview_height = 0.4,
+          },
+        },
         mappings = {
           i = {
             ["<C-j>"] = "move_selection_next",
