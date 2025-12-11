@@ -116,19 +116,20 @@ return {
       end
 
       -- Open NvimTree on startup (IDE style)
-      -- Better behavior: open NvimTree only if no file is passed
       vim.api.nvim_create_autocmd("UIEnter", {
         once = true,
         callback = function()
           local api = require("nvim-tree.api")
 
           if vim.fn.argc() == 0 then
-            -- No file was given: create a real buffer first (prevents scratch buffer)
+            -- No file was given: open tree and focus it
             vim.cmd("enew")
+            api.tree.open()
+          else
+            -- File was given: open tree but keep cursor in the file
+            api.tree.open()
+            vim.cmd("wincmd p") -- go back to previous window (the file)
           end
-
-          -- Now open the tree without stealing focus
-          api.tree.open()
         end,
       })
 

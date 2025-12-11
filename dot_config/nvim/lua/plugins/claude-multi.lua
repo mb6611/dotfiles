@@ -1,6 +1,6 @@
 return {
-  dir = "~/Desktop/code/claude-multi.nvim",
-  -- "mb6611/claude-multi.nvim",
+  -- dir = "~/Desktop/code/claude-multi.nvim",
+  "mb6611/claude-multi.nvim",
   dependencies = { "folke/snacks.nvim" },
   event = "VeryLazy",
   opts = {

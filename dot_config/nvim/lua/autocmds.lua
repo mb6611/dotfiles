@@ -18,7 +18,7 @@ autocmd("BufReadPost", {
 
 -- Auto-reload file when it changes externally
 augroup("AutoReload", { clear = true })
-autocmd({ "FocusGained", "BufEnter" }, {
+autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   group = "AutoReload",
   command = "checktime",
 })
@@ -62,6 +62,16 @@ autocmd("BufWritePre", {
     local save_cursor = vim.fn.getpos(".")
     vim.cmd([[%s/\s\+$//e]])
     vim.fn.setpos(".", save_cursor)
+  end,
+})
+
+-- Format Prisma files on save
+augroup("PrismaFormat", { clear = true })
+autocmd("BufWritePre", {
+  group = "PrismaFormat",
+  pattern = "*.prisma",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
   end,
 })
 

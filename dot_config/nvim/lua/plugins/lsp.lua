@@ -21,6 +21,7 @@ return {
         "html",
         "cssls",
         "jsonls",
+        "prismals",
       },
       automatic_installation = true,
     },
@@ -85,6 +86,7 @@ return {
         html = {},
         cssls = {},
         jsonls = {},
+        prismals = {},
       }
 
       for server, config in pairs(servers) do

@@ -82,25 +82,56 @@ The config includes `claude-multi.nvim` (local dev at `~/Desktop/code/claude-mul
 3. Check `:messages` for errors
 4. Use `:checkhealth` for diagnostics
 
+## Customization Pipeline
+
+**Type `/customize` to start an autonomous pipeline for building new features.**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  You → [Planner] → [Reviewer] → [Implementer] → [Tester] → You │
+│            ↑            │              ↑            │          │
+│            └────────────┘              └────────────┘          │
+│              (iterate)                   (iterate)             │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+The pipeline runs autonomously - you provide the idea, agents collaborate, you review the result.
+
+### Pipeline Agents
+
+| Agent | Role | What It Does |
+|-------|------|--------------|
+| **Planner** | Brainstorm | Asks lots of questions, creates UI mockups, writes spec |
+| **Reviewer** | Quality Gate | Checks UX, conflicts, edge cases |
+| **Implementer** | Code | Writes clean Lua following your patterns |
+| **Tester** | Verify | Tests via MCP, catches bugs |
+
+### Quick Reference: Where Things Go
+
+| Want to add... | Put it in... | Example |
+|----------------|--------------|---------|
+| External plugin | `lua/plugins/[category].lua` | telescope.lua |
+| Global keymap | `lua/keymaps.lua` | |
+| Plugin keymap | Inline `keys = {}` in spec | telescope.lua |
+| Autocommand | `lua/autocmds.lua` | |
+| Editor option | `lua/options.lua` | |
+| New plugin (dev) | `~/Desktop/code/[name]/` | claude-multi.nvim |
+
 ## Custom Subagents
 
-This config has specialized subagents in `.claude/agents/` for Neovim development:
+This config has specialized subagents in `.claude/agents/`:
 
-### 👨‍💻 neovim-lua-expert
-Use for writing/refactoring Lua config code. Handles plugin configs, keybindings, autocommands, LSP setup.
+### Neovim Planner
+Brainstorms features through extensive questioning. Creates visual UI mockups and detailed specifications.
 
-```
-"Add telescope.nvim to my config" → launches neovim-lua-expert
-"Help me organize my keymaps" → launches neovim-lua-expert
-```
+### Neovim Reviewer
+Reviews specs for UX issues, conflicts with existing config, and edge cases. Quality gate before implementation.
 
-### 🧪 neovim-config-tester
-Use for testing config changes in a live Neovim instance via MCP. Verifies plugins load, keybindings work, checks for errors.
+### neovim-lua-expert
+Writes/refactors Lua config code. Handles plugin configs, keybindings, autocommands, LSP setup.
 
-```
-"Test if my new colorscheme loads correctly" → launches neovim-config-tester
-"Verify my telescope keybindings work" → launches neovim-config-tester
-```
+### neovim-config-tester
+Tests config changes in a live Neovim instance via MCP. Verifies plugins load, keybindings work, checks for errors.
 
 **Starting a test Neovim instance:** If no Neovim is connected via MCP, start one in the background:
 
@@ -112,7 +143,7 @@ if ! nvim --server /tmp/nvim --remote-expr "1" 2>/dev/null; then
 fi
 ```
 
-### Workflow for New Features
+### Manual Workflow (Without Pipeline)
 
 1. **Implement** with `neovim-lua-expert` - writes clean, modular Lua code
 2. **Test** with `neovim-config-tester` - verifies changes work via MCP connection to Neovim

@@ -93,4 +93,17 @@ return {
       set_hl(0, "UnifiedChanged", { bg = "#2a2a1a", fg = "#ffeb3b" })
     end,
   },
+
+  -- Inline deleted lines (shows deleted git lines as virtual text)
+  {
+    -- dir = "~/Desktop/code/inline-deleted.nvim",
+    "mb6611/inline-deleted.nvim",
+    dependencies = { "lewis6991/gitsigns.nvim" },
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
+    keys = {
+      { "<leader>gi", function() require("inline-deleted").toggle() end, desc = "Toggle inline deleted" },
+      { "<leader>ge", function() require("inline-deleted").expand() end, desc = "Expand deleted hunk" },
+    },
+  },
 }

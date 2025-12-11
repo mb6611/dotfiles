@@ -5,7 +5,7 @@ return {
     build = ":TSUpdate",
     -- Treesitter should NOT be lazy-loaded on events
     -- so it's loaded immediately at startup for correct highlighting.
-    event = "VeryLazy",
+    lazy = false,
 
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
@@ -30,7 +30,8 @@ return {
         "markdown_inline",
         "bash",
         "latex",
-        "dockerfile",
+        -- "dockerfile",  -- Disabled due to tarball download issues
+        "prisma",
       },
 
       sync_install = false,
@@ -39,7 +40,7 @@ return {
       auto_install = true,
 
       -- Advanced: ignore certain parsers
-      ignore_install = {},
+      ignore_install = { "dockerfile" },  -- Prevent auto-reinstall due to corrupted tarball
 
       highlight = {
         enable = true,
@@ -60,18 +61,7 @@ return {
     },
 
     config = function(_, opts)
-      -- OPTIONAL: Better Dockerfile parser (uncomment to fix Dockerfile crashes)
-      -- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-      -- parser_config.dockerfile = {
-      --   install_info = {
-      --     url = "https://github.com/camdencheek/tree-sitter-dockerfile",
-      --     files = { "src/parser.c" },
-      --     branch = "main",
-      --   },
-      --   filetype = "dockerfile",
-      -- }
-      --
-      -- require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter.configs").setup(opts)
     end,
   },
 

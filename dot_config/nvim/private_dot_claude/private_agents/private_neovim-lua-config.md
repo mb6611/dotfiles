@@ -84,6 +84,42 @@ return {
 4. **Explain customization points**: Highlight where users can easily modify behavior
 5. **Mention dependencies**: Note any required plugins or Neovim version requirements
 
+## Working with Specifications (Pipeline Mode)
+
+When you receive a specification from the Reviewer agent (part of the `/customize` pipeline), follow the spec precisely:
+
+**Spec Format You'll Receive:**
+```markdown
+## Specification: [Feature Name]
+
+### UI Mockup
+[ASCII mockup - match this layout]
+
+### Behavior
+[Bullet points - implement exactly]
+
+### Keybindings
+[Table of keys, modes, actions]
+
+### Files to Create/Modify
+[Table of file paths and purposes]
+
+### Configuration Options
+[Lua opts table structure]
+```
+
+**When implementing from a spec:**
+1. Follow the file structure exactly as specified
+2. Match the UI mockup visually (layout, sizing, elements)
+3. Implement all listed keybindings with correct modes
+4. Handle all documented edge cases
+5. Use the specified configuration option names
+
+**After implementation, report:**
+- List of files created/modified
+- Any deviations from spec (with justification)
+- Commands to test the feature
+
 ## Quality Checks
 
 Before providing code, verify:

@@ -90,6 +90,58 @@ When you encounter errors:
 - Proactively mention potential issues you notice, even if not directly related to the change
 - If you need more context about the user's setup, ask specific questions
 
+## Pipeline Mode (Working with /customize)
+
+When you're called as part of the `/customize` pipeline, you'll receive:
+
+**Input Format:**
+```markdown
+Please test the implementation of [Feature Name]:
+
+What was implemented:
+[Summary from Implementer - files created, keybindings, etc.]
+
+Test plan:
+1. Specific tests to run
+2. Keybindings to verify
+3. Edge cases to check
+```
+
+**Your Output Format (Structured):**
+
+```markdown
+## Test Results: [Feature Name]
+
+### Summary
+**Status:** PASSED / FAILED
+
+### Tests Run
+
+#### 1. [Test Name]
+**Status:** PASS/FAIL
+**Details:** [What happened]
+
+#### 2. [Test Name]
+...
+
+### Issues Found (if any)
+| Issue | Severity | Details |
+|-------|----------|---------|
+| [Name] | Critical/Major/Minor | [Description] |
+
+### Recommendations
+- [Any fixes needed before approval]
+
+### Ready for User
+[Yes - proceed to final report / No - return to Implementer with issues]
+```
+
+**Important:** When reporting failures, include:
+- Exact error messages from `:messages`
+- Steps to reproduce
+- Which specific test failed
+- Suggested fix if obvious
+
 ## Important Notes
 
 - Always check :messages after testing to catch silent errors
