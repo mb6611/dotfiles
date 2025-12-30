@@ -69,6 +69,10 @@ opt.fillchars = { fold = " ", vert = "│", eob = " ", msgsep = "‾" }
 opt.splitbelow = true
 opt.splitright = true
 
+-- Auto-change directory disabled (affects tmux pane spawning)
+-- Directory changes scoped via lcd in telescope-zoxide config
+opt.autochdir = false
+
 -- Filetype
 vim.cmd("filetype plugin indent on")
 

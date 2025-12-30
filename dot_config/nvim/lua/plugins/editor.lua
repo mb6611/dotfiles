@@ -113,6 +113,9 @@ return {
         vim.keymap.set("n", "i", api.node.open.horizontal, opts("Open: Horizontal Split"))
         vim.keymap.set("n", "go", api.node.open.preview, opts("Open Preview"))
         vim.keymap.set("n", "t", api.node.open.tab, opts("Open: New Tab"))
+        -- Vim-style directory navigation
+        vim.keymap.set("n", "l", api.tree.change_root_to_node, opts("CD into directory"))
+        vim.keymap.set("n", "h", api.tree.change_root_to_parent, opts("CD to parent"))
       end
 
       -- Open NvimTree on startup (IDE style)
@@ -120,21 +123,16 @@ return {
         once = true,
         callback = function()
           local api = require("nvim-tree.api")
-
-          if vim.fn.argc() == 0 then
-            -- No file was given: open tree and focus it
-            vim.cmd("enew")
-            api.tree.open()
-          else
-            -- File was given: open tree but keep cursor in the file
-            api.tree.open()
-            vim.cmd("wincmd p") -- go back to previous window (the file)
+          api.tree.open()
+          if vim.fn.argc() > 0 then
+            -- File was given: keep cursor in the file
+            vim.cmd("wincmd p")
           end
         end,
       })
 
       -- Smart toggle for NvimTree
-      vim.keymap.set('n', '<leader>e', function()
+      vim.keymap.set('n', '<M-e>', function()
         local view = require('nvim-tree.view')
         local api = require('nvim-tree.api')
 
@@ -154,7 +152,6 @@ return {
         nested = true,
         callback = function()
           local tree = require("nvim-tree.api").tree
-          -- If NvimTree is the last window open, close it
           if #vim.api.nvim_list_wins() == 1 and tree.is_tree_buf() then
             vim.cmd("quit")
           end
@@ -164,6 +161,7 @@ return {
 
       require("nvim-tree").setup({
         on_attach = on_attach,
+        sync_root_with_cwd = true,
         view = { width = 25 },
         renderer = {
           indent_markers = { enable = true },
@@ -188,6 +186,10 @@ return {
           },
         },
         git = { ignore = false },
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
       })
     end,
   },
@@ -264,6 +266,11 @@ return {
       vim.keymap.set('n', '<Tab>', '<Cmd>BufferLineCycleNext<CR>')
       vim.keymap.set('n', '<S-Tab>', '<Cmd>BufferLineCyclePrev<CR>')
 
+      -- jump to tab by number
+      for i = 1, 9 do
+        vim.keymap.set('n', '<leader>' .. i, '<Cmd>BufferLineGoToBuffer ' .. i .. '<CR>')
+      end
+
       -- reorder buffers
       vim.keymap.set('n', '<leader>bn', '<Cmd>BufferLineMoveNext<CR>')
       vim.keymap.set('n', '<leader>bp', '<Cmd>BufferLineMovePrev<CR>')
@@ -271,8 +278,16 @@ return {
       -- pick tab
       vim.keymap.set('n', '<leader>p', '<Cmd>BufferLinePick<CR>')
 
-      -- open and close tabs
-      vim.keymap.set('n', '<leader>bc', '<Cmd>bdelete<CR>')
+      -- close buffer
+      local function close_buffer()
+        if #vim.fn.getbufinfo({ buflisted = 1 }) <= 1 then
+          vim.cmd('quit')
+        else
+          vim.cmd('BufferLineCyclePrev')
+          vim.cmd('bdelete #')
+        end
+      end
+      vim.keymap.set('n', '<C-w>', close_buffer)
       vim.keymap.set('n', '<leader>bx', '<Cmd>BufferLinePickClose<CR>')
 
 
@@ -336,4 +351,7 @@ return {
 
   -- JSX pretty (syntax)
   { "maxmellon/vim-jsx-pretty", ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
+
+  -- Helm syntax (handles Go templates in YAML better than Treesitter)
+  { "towolf/vim-helm", ft = "helm" },
 }

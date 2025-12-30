@@ -16,6 +16,7 @@ autocmd("BufReadPost", {
   end,
 })
 
+
 -- Auto-reload file when it changes externally
 augroup("AutoReload", { clear = true })
 autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
@@ -53,17 +54,6 @@ autocmd("BufWinEnter", {
   command = "silent! loadview",
 })
 
--- Delete trailing whitespace on save
-augroup("CleanWhitespace", { clear = true })
-autocmd("BufWritePre", {
-  group = "CleanWhitespace",
-  pattern = { "*.txt", "*.js", "*.py", "*.wiki", "*.sh", "*.coffee", "*.cpp", "*.ts", "*.tsx", "*.lua" },
-  callback = function()
-    local save_cursor = vim.fn.getpos(".")
-    vim.cmd([[%s/\s\+$//e]])
-    vim.fn.setpos(".", save_cursor)
-  end,
-})
 
 -- Format Prisma files on save
 augroup("PrismaFormat", { clear = true })
@@ -85,6 +75,15 @@ autocmd("VimLeave", {
 -- Clear search highlights on startup
 vim.cmd("nohlsearch")
 
+-- Detect Helm templates (YAML files with Go template syntax)
+vim.filetype.add({
+  pattern = {
+    [".*/templates/.*%.yaml"] = "helm",
+    [".*/templates/.*%.tpl"] = "helm",
+    ["helmfile.*%.yaml"] = "helm",
+  },
+})
+
 -- Highlight on yank
 augroup("HighlightYank", { clear = true })
 autocmd("TextYankPost", {
@@ -93,3 +92,4 @@ autocmd("TextYankPost", {
     vim.highlight.on_yank({ timeout = 200 })
   end,
 })
+

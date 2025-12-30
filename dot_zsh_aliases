@@ -1,5 +1,5 @@
 # enable color support for `ls` and also add handy aliases
-alias ls='ls --color=auto'
+alias ls='gls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -25,4 +25,14 @@ alias tetris=/snap/bin/tetris-thefenriswolf.tetris # add to .bashrc or .zshrc et
 # globe
 alias globe="$HOME/.cargo/bin/globe"
 
+# git
+alias gc='git checkout'
+alias gs='git status'
+alias gb='git branch'
+
 alias nate="git pull"
+
+# conveniences
+alias n="nvim"
+
+alias claude='claude --plugin-dir ~/Desktop/code/claude-dotfiles'

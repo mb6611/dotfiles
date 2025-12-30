@@ -6,7 +6,8 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("dark_purple")
+      vim.cmd.colorscheme("gruvbox-material")
+      -- vim.cmd.colorscheme("dark_purple")
       -- Transparency
       vim.cmd("hi! Normal ctermbg=NONE guibg=NONE")
       vim.cmd("hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE")

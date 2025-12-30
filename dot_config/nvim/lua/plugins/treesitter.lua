@@ -32,6 +32,7 @@ return {
         "latex",
         -- "dockerfile",  -- Disabled due to tarball download issues
         "prisma",
+        "yaml",
       },
 
       sync_install = false,
@@ -45,8 +46,12 @@ return {
       highlight = {
         enable = true,
 
-        -- Disable highlight dynamically for large files only
+        -- Disable highlight for helm (use vim-helm instead) and large files
         disable = function(lang, buf)
+          -- Use vim-helm syntax instead of Treesitter for helm files
+          if lang == "helm" or vim.bo[buf].filetype == "helm" then
+            return true
+          end
           local max_filesize = 150 * 1024 -- 150 KB (safer default)
           local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
           if ok and stats and stats.size > max_filesize then

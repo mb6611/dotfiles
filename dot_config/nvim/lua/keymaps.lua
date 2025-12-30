@@ -39,6 +39,10 @@ map("n", "<leader>O", "O<Esc>j", opts)
 -- Bracket jumping
 map({ "n", "v" }, "<leader>w", "%", opts)
 
+-- Fast vertical movement (Shift-j/k)
+map({ "n", "v" }, "J", "10j", opts)
+map({ "n", "v" }, "K", "10k", opts)
+
 -- Line moving (Alt+j/k)
 map("n", "<A-j>", ":m .+1<CR>==", opts)
 map("n", "<A-k>", ":m .-2<CR>==", opts)

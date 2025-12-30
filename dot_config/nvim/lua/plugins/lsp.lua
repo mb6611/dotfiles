@@ -60,7 +60,7 @@ return {
           map("n", "gy", "<cmd>Telescope lsp_type_definitions<cr>", "Go to type definition")
           map("n", "gi", "<cmd>Telescope lsp_implementations<cr>", "Go to implementation")
           map("n", "gr", "<cmd>Telescope lsp_references<cr>", "References")
-          map("n", "K", vim.lsp.buf.hover, "Hover documentation")
+          map("n", "gh", vim.lsp.buf.hover, "Hover documentation")
           map("n", "<leader>rn", vim.lsp.buf.rename, "Rename")
           map("n", "<leader>rf", vim.lsp.buf.code_action, "Code action")
           map({ "n", "v" }, "<leader>f", vim.lsp.buf.format, "Format")

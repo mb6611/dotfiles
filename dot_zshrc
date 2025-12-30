@@ -37,10 +37,11 @@ eval "$(zoxide init zsh)"
 #alias launchspt='/scripts/launchspt.sh' # this runs the spotifyd daemon automatically upon opening spotify
 
 # theming terminal colors
-export LS_COLORS="$(vivid generate tokyonight-moon)"
+# export LS_COLORS="$(vivid generate tokyonight-moon)"
+export LS_COLORS="$(vivid generate gruvbox-dark)"
 
 # modifying the terminal prompt (user@host <filename> λ)
-export PROMPT='%n@%m %~ %F{red}λ%f '
+export PROMPT='%n %~ %F{red}λ%f '
 
 # path definitions.
 if [ -f ~/.zsh_path ]; then
@@ -86,6 +87,13 @@ if [ -f '/Users/1unoe/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/1un
 
 #export OPENAI_API_KEY="$(security find-generic-password -s 'avante.nvim' -a '' -w)"
 
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow \
+  --exclude .git \
+  --exclude node_modules \
+  --exclude .cache \
+  --exclude Library'
+
+
 export PATH=$PATH:/Users/1unoe/.spicetify
 
 export K9S_FEATURE_GATE_NODE_SHELL="true"
@@ -128,3 +136,4 @@ if command -v tmux &> /dev/null \
   # attach to default session OR create it
   tmux attach -t default 2>/dev/null || tmux new -s default
 fi
+eval "$(direnv hook zsh)"

@@ -12,6 +12,7 @@ return {
     cmd = "Telescope",
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+      { "<C-n>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       { "<leader>fj", "<cmd>Telescope git_files<cr>", desc = "Git files" },
       { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
@@ -45,12 +46,18 @@ return {
       },
       pickers = {
         find_files = { theme = "dropdown" },
+        live_grep = {
+          additional_args = { "--sort=path" },
+        },
       },
       extensions = {
         zoxide = {
           prompt_title = "[ Zoxide directories ]",
           mappings = {
             default = {
+              action = function(selection)
+                vim.cmd.lcd(selection.path)
+              end,
               after_action = function(selection)
                 print("Directory changed to " .. selection.path)
               end,
