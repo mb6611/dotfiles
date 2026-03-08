@@ -63,13 +63,7 @@ map("v", "<M-k>", ":m '<-2<CR>gv=gv", opts)
 map({ "n", "x" }, "<leader>y", ":w !pbcopy<CR><CR>", opts)
 map("n", "<leader>yy", ":%w !pbcopy<CR><CR>", opts)
 
--- Telescope mappings
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
-map("n", "<leader>fj", "<cmd>Telescope git_files<cr>", opts)
-map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", opts)
-map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts)
-map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", opts)
-map("n", "<leader>fz", "<cmd>Telescope zoxide list<cr>", opts)
+-- Telescope mappings defined in lua/plugins/telescope.lua
 
 -- LaTeX shortcuts
 map("n", "<leader>bb", ":w<cr>:!pdflatex %:r.tex && bibtex %:r.aux && pdflatex %:r.tex && pdflatex %:r.tex && rm %:r.aux %:r.log %:r.blg %:r.bbl<cr>", opts)

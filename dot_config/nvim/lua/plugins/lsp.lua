@@ -22,6 +22,7 @@ return {
         "cssls",
         "jsonls",
         "prismals",
+        "gopls",
       },
       automatic_installation = true,
     },
@@ -87,6 +88,11 @@ return {
         cssls = {},
         jsonls = {},
         prismals = {},
+        gopls = {},
+        sourcekit = {
+          cmd = { "sourcekit-lsp" },
+          filetypes = { "swift", "objc", "objcpp" },
+        },
       }
 
       for server, config in pairs(servers) do
