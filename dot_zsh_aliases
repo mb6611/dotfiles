@@ -29,10 +29,14 @@ alias globe="$HOME/.cargo/bin/globe"
 alias gc='git checkout'
 alias gs='git status'
 alias gb='git branch'
+alias gl='git pull'
 
 alias nate="git pull"
 
 # conveniences
 alias n="nvim"
+alias p="pnpm"
+alias s="sisyphus"
 
-alias claude='claude --plugin-dir ~/Desktop/code/claude-dotfiles'
+alias c="claude --dangerously-skip-permissions"
+alias clauded="claude --dangerously-skip-permissions"

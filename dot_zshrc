@@ -29,9 +29,6 @@ export NVM_DIR="$HOME/.nvm"
 # initialize cargo (package installer)
 source "$HOME/.cargo/env"
 
-# initialize zoxide
-eval "$(zoxide init zsh)"
-
 # spotify tui and spotifyd
 #chmod +x /scripts/launchspt.sh
 #alias launchspt='/scripts/launchspt.sh' # this runs the spotifyd daemon automatically upon opening spotify
@@ -86,6 +83,9 @@ if [ -f '/Users/1unoe/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/1unoe/goo
 if [ -f '/Users/1unoe/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/1unoe/google-cloud-sdk/completion.zsh.inc'; fi
 
 #export OPENAI_API_KEY="$(security find-generic-password -s 'avante.nvim' -a '' -w)"
+export LINEAR_API_KEY="$(security find-generic-password -s 'linear-api-key' -a '' -w)"
+export NORTHLIGHT_NPM_TOKEN="$(security find-generic-password -s 'northlight-npm-token' -a '' -w)"
+export DISCORD_BOT_TOKEN="$(security find-generic-password -s 'DISCORD_BOT_TOKEN' -a 'openclaw' -w)"
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow \
   --exclude .git \
@@ -124,7 +124,7 @@ export PS1='$(kube_ps1)'$PS1
 export DISPLAY=:0
 export PATH="$HOME/.local/bin:$PATH"
 
-# Safe tmux autostart — default session attach-or-create
+# Safe tmux autostart — attach to last session or create new
 if command -v tmux &> /dev/null \
   && [ -n "$PS1" ] \
   && [ -z "$TMUX" ] \
@@ -133,7 +133,31 @@ if command -v tmux &> /dev/null \
   && [[ "$TERM_PROGRAM" != "vscode" ]] \
   && [[ "$TERMINAL_EMULATOR" != "JetBrains-JediTerm" ]]; then
 
-  # attach to default session OR create it
-  tmux attach -t default 2>/dev/null || tmux new -s default
+  # attach to most recent session, or create main if none exist
+  tmux attach 2>/dev/null || tmux new -s main
 fi
 eval "$(direnv hook zsh)"
+
+# zsh-vi-mode
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
+source $(brew --prefix zsh-vi-mode)/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+function zvm_after_init() {
+  bindkey '^R' history-incremental-search-backward
+}
+
+# initialize zoxide
+eval "$(zoxide init zsh)"
+
+# initialize gw
+eval "$(gw init zsh)"
+
+alias gam="/Users/1unoe/bin/gamadv-xtd3/gam"
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+
+# OpenClaw Completion
+source "/Users/1unoe/.openclaw/completions/openclaw.zsh"
