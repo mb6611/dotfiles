@@ -36,7 +36,10 @@ alias nate="git pull"
 # conveniences
 alias n="nvim"
 alias p="pnpm"
-alias s="sisyphus"
+alias s="sis"
 
 alias c="claude --dangerously-skip-permissions"
 alias clauded="claude --dangerously-skip-permissions"
+
+# Machine-local / private aliases (project/machine-specific paths) — not tracked. See ~/.zsh_aliases_local
+[ -f ~/.zsh_aliases_local ] && source "$HOME/.zsh_aliases_local"

@@ -1,0 +1,2 @@
+# Machine-local / private dotfiles — never commit (may contain project-specific paths/secrets)
+dot_zsh_aliases_local

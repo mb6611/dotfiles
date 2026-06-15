@@ -63,9 +63,16 @@ return {
         },
       },
       pickers = {
-        find_files = { theme = "dropdown" },
+        find_files = {
+          theme = "dropdown",
+          hidden = true,
+          find_command = {
+            "sh", "-c",
+            "fd --type f --hidden --exclude .claude; [ -d .claude ] && fd --type f --hidden --no-ignore . .claude",
+          },
+        },
         live_grep = {
-          additional_args = function() return { "--sort=path" } end,
+          additional_args = function() return { "--sort=path", "--hidden" } end,
         },
       },
       extensions = {
