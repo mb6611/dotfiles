@@ -3,6 +3,9 @@
 
 set -eufo pipefail
 
+# install missing packages only; never surprise-upgrade on chezmoi apply
+export HOMEBREW_BUNDLE_NO_UPGRADE=1
+
 brew bundle --file=/dev/stdin <<EOF
 {{ range .packages.darwin.taps -}}
 tap "{{ . }}"
