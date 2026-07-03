@@ -253,4 +253,4 @@ bind r display-popup -d "#{pane_current_path}" -w 90% -h 90% -E \
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
-source-file /Users/1unoe/.sisyphus/tmux.conf # sisyphus-managed — do not edit
+source-file {{ .chezmoi.homeDir }}/.sisyphus/tmux.conf # sisyphus-managed — do not edit
