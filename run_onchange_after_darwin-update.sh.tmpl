@@ -1,0 +1,10 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+# macOS version: {{ output "sw_vers" "--productVersion" }}
+# The line above re-triggers this script after every macOS update.
+
+# Xcode CLT breaks after OS updates; nvim plugins with build steps
+# (fzf-native, avante, luasnip) and treesitter need cc/make.
+xcode-select --install 2>/dev/null || true
+{{ end -}}

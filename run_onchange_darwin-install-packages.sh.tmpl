@@ -1,0 +1,29 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+brew bundle --file=/dev/stdin <<EOF
+{{ range .packages.darwin.taps -}}
+tap "{{ . }}"
+{{ end -}}
+{{ range .packages.darwin.brews -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+cask "{{ . }}"
+{{ end -}}
+EOF
+
+{{ range .packages.darwin.npm -}}
+npm ls -g {{ . | quote }} >/dev/null 2>&1 || npm install -g {{ . | quote }}
+{{ end }}
+{{ range .packages.darwin.pipx -}}
+pipx list --short 2>/dev/null | grep -q {{ . | quote }} || pipx install {{ . | quote }}
+{{ end }}
+if command -v cargo >/dev/null 2>&1; then
+{{ range .packages.darwin.cargo -}}
+  command -v {{ .bin | quote }} >/dev/null 2>&1 || cargo install --locked {{ .crate | quote }}
+{{ end -}}
+fi
+{{ end -}}

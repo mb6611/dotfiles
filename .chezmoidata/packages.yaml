@@ -1,0 +1,107 @@
+packages:
+  darwin:
+    taps:
+      - oven-sh/bun
+    brews:
+      # nvim config deps (telescope find_command, mason, providers)
+      - neovim
+      - fd
+      - ripgrep
+      - fzf
+      - zoxide
+      - node # mason installs most LSP servers via npm
+      - nvm
+      - go # mason: gopls
+      # shell (zshrc / aliases / functions)
+      - coreutils # alias ls='gls --color=auto'
+      - xclip # pbcopy/pbpaste aliases (needs xquartz cask)
+      - starship
+      - vivid
+      - direnv
+      - pnpm # alias p; sis is a pnpm global
+      - pandoc # pandocpdf() / pandoc2tex()
+      - ghostscript # pdfcompress()
+      - spotify_player # alias sp; tmux spotify-ctl.sh
+      - spotifyd
+      # tmux
+      - tmux
+      - tmuxinator
+      - tmate
+      # k8s (k9s config is chezmoi-tracked)
+      - k9s
+      - kubectx
+      - kube-ps1
+      - helm
+      # daily CLI
+      - chezmoi
+      - bat
+      - bun
+      - gh
+      - git-lfs
+      - jq
+      - yq
+      - htop
+      - tree
+      - wget
+      - watch
+      - ncdu
+      - pstree
+      - lazygit
+      - lazydocker
+      - terminal-notifier
+      - magic-wormhole
+      - aria2
+      - uv
+      - pipx
+      - deno
+      # dev / infra
+      - docker
+      - awscli
+      - azure-cli
+      - eksctl
+      - terragrunt
+      - postgresql@16 # zsh_path pins @16
+      - cmake
+      - ninja
+      - protobuf
+      - graphviz
+      - poppler
+      - ollama
+      - llama.cpp
+      - socat
+      - websocat
+      - nmap
+    casks:
+      - font-jetbrains-mono-nerd-font
+      - font-caskaydia-cove-nerd-font
+      - cursor
+      - marta
+      - sioyek
+      - ngrok
+      - tunnelblick
+      - shortcat
+      - temurin
+      - xquartz # required by xclip
+      - macfuse
+      - mactex-no-gui # pdflatex for the pandoc functions
+      - session-manager-plugin
+      - codex
+      - block-goose
+    npm:
+      - "@crouton-kit/capture"
+      - "@crouton-kit/crouter"
+      - "@crouton-kit/humanloop"
+      - "@crouton-kit/render-viz"
+      - pm2
+    pipx:
+      - termrender
+    # requires rustup (https://rustup.rs) — not brew-managed
+    cargo:
+      - { crate: bacon, bin: bacon }
+      - { crate: tokei, bin: tokei }
+      - { crate: wasm-pack, bin: wasm-pack }
+      - { crate: globe-cli, bin: globe } # alias globe
+      - { crate: netscanner, bin: netscanner }
+      - { crate: chess-tui, bin: chess-tui }
+      - { crate: spotify-tui, bin: spt }
+      - { crate: tauri-cli, bin: cargo-tauri }
