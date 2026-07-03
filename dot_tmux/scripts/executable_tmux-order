@@ -1,0 +1,116 @@
+#!/bin/bash
+# tmux-order: session ordering via @order option
+# Replaces N-name convention with a hidden sort key
+#
+# NOTE: All tmux -t targets use "$s:" (colon suffix) to force
+# session-level resolution. Without it, tmux may resolve "main"
+# as a window name in the current session instead of the session.
+
+action=$1
+cur=$(tmux display-message -p '#{session_name}')
+
+# Get all sessions sorted by @order (unordered sessions go to end)
+ordered() {
+  tmux list-sessions -F '#{session_name}' | while read -r s; do
+    ord=$(tmux show-option -t "$s:" -v @order 2>/dev/null)
+    [ -z "$ord" ] && ord=999999
+    printf '%d\t%s\n' "$ord" "$s"
+  done | sort -n | cut -f2-
+}
+
+# Get max @order across all sessions
+max_order() {
+  local max=0
+  while read -r s; do
+    ord=$(tmux show-option -t "$s:" -v @order 2>/dev/null)
+    [ -n "$ord" ] && [ "$ord" -gt "$max" ] 2>/dev/null && max=$ord
+  done < <(tmux list-sessions -F '#{session_name}')
+  echo "$max"
+}
+
+case "$action" in
+  next)
+    sessions=($(ordered))
+    for ((i=0; i<${#sessions[@]}; i++)); do
+      if [ "${sessions[$i]}" = "$cur" ]; then
+        next=$((i + 1))
+        [ $next -ge ${#sessions[@]} ] && exit 0
+        tmux switch-client -t "${sessions[$next]}:"
+        exit 0
+      fi
+    done
+    ;;
+
+  prev)
+    sessions=($(ordered))
+    for ((i=0; i<${#sessions[@]}; i++)); do
+      if [ "${sessions[$i]}" = "$cur" ]; then
+        [ $i -eq 0 ] && exit 0
+        tmux switch-client -t "${sessions[$((i - 1))]}:"
+        exit 0
+      fi
+    done
+    ;;
+
+  swap-next)
+    sessions=($(ordered))
+    for ((i=0; i<${#sessions[@]}; i++)); do
+      if [ "${sessions[$i]}" = "$cur" ]; then
+        next=$((i + 1))
+        [ $next -ge ${#sessions[@]} ] && exit 0
+        cur_ord=$(tmux show-option -t "$cur:" -v @order 2>/dev/null)
+        next_ord=$(tmux show-option -t "${sessions[$next]}:" -v @order 2>/dev/null)
+        tmux set-option -t "$cur:" @order "$next_ord"
+        tmux set-option -t "${sessions[$next]}:" @order "$cur_ord"
+        exit 0
+      fi
+    done
+    ;;
+
+  swap-prev)
+    sessions=($(ordered))
+    for ((i=0; i<${#sessions[@]}; i++)); do
+      if [ "${sessions[$i]}" = "$cur" ]; then
+        [ $i -eq 0 ] && exit 0
+        prev=$((i - 1))
+        cur_ord=$(tmux show-option -t "$cur:" -v @order 2>/dev/null)
+        prev_ord=$(tmux show-option -t "${sessions[$prev]}:" -v @order 2>/dev/null)
+        tmux set-option -t "$cur:" @order "$prev_ord"
+        tmux set-option -t "${sessions[$prev]}:" @order "$cur_ord"
+        exit 0
+      fi
+    done
+    ;;
+
+  assign)
+    # Assign @order to any session that doesn't have one
+    max=$(max_order)
+    while read -r s; do
+      existing=$(tmux show-option -t "$s:" -v @order 2>/dev/null)
+      if [ -z "$existing" ]; then
+        max=$((max + 1))
+        tmux set-option -t "$s:" @order "$max"
+      fi
+    done < <(tmux list-sessions -F '#{session_name}')
+    ;;
+
+  compact)
+    # Renumber to fill gaps (1, 2, 3, ...)
+    i=1
+    for s in $(ordered); do
+      tmux set-option -t "$s:" @order $i
+      i=$((i + 1))
+    done
+    ;;
+
+  ordered-menu)
+    # Build tmux display-menu sorted by @order
+    args=()
+    n=1
+    for s in $(ordered); do
+      args+=("$s" "$n" "switch-client -t $s:")
+      n=$((n + 1))
+    done
+    tmux display-menu -T "Sessions" "${args[@]}"
+    ;;
+esac
