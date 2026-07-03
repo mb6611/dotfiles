@@ -16,6 +16,7 @@ packages:
       - coreutils # alias ls='gls --color=auto'
       - xclip # pbcopy/pbpaste aliases (needs xquartz cask)
       - starship
+      - atuin
       - vivid
       - direnv
       - pnpm # alias p; sis is a pnpm global
@@ -71,6 +72,9 @@ packages:
       - socat
       - websocat
       - nmap
+      - mprocs
+      - snap
+      - nginx
     casks:
       - font-jetbrains-mono-nerd-font
       - font-caskaydia-cove-nerd-font

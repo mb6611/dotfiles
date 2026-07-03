@@ -154,9 +154,7 @@ eval "$(gw init zsh)"
 
 alias gam="/Users/1unoe/bin/gamadv-xtd3/gam"
 
-. "$HOME/.atuin/bin/env"
-
-eval "$(atuin init zsh)"
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh)"
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
 # OpenClaw Completion
