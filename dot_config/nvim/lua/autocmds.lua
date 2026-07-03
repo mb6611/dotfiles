@@ -84,6 +84,34 @@ vim.filetype.add({
   },
 })
 
+-- Open PDFs in Sioyek instead of loading them as a garbage binary buffer.
+-- BufReadCmd intercepts the read itself, so nvim never slurps the binary; we launch
+-- Sioyek (detached, on PATH at /opt/homebrew/bin/sioyek) and then either:
+--   * quit nvim, if it was started purely to open this pdf (`nvim file.pdf`), or
+--   * drop the pdf buffer and return to the previous one, if opened mid-session
+--     (:e, telescope, nvim-tree) — so no empty [No Name] is left behind.
+augroup("PdfToSioyek", { clear = true })
+autocmd("BufReadCmd", {
+  group = "PdfToSioyek",
+  pattern = { "*.pdf", "*.PDF" },
+  callback = function(ev)
+    local path = vim.fn.fnamemodify(ev.file, ":p")
+    -- Capture now, before VimEnter flips vim_did_enter to 1.
+    local launched_for_pdf = vim.v.vim_did_enter == 0 and vim.fn.argc() <= 1
+    vim.fn.jobstart({ "sioyek", path }, { detach = true })
+    vim.schedule(function()
+      if launched_for_pdf then
+        vim.cmd("qa!") -- shell `nvim file.pdf`: hand off to Sioyek, don't linger
+      else
+        if vim.api.nvim_buf_is_valid(ev.buf) then
+          pcall(vim.api.nvim_buf_delete, ev.buf, { force = true })
+        end
+        vim.notify("Opened in Sioyek: " .. vim.fn.fnamemodify(path, ":t"))
+      end
+    end)
+  end,
+})
+
 -- Highlight on yank
 augroup("HighlightYank", { clear = true })
 autocmd("TextYankPost", {

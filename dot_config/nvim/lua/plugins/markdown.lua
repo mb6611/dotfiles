@@ -1,4 +1,4 @@
--- Markdown and LaTeX
+-- Markdown  (LaTeX lives in lua/plugins/latex.lua)
 return {
   -- In-buffer markdown rendering
   {
@@ -29,6 +29,8 @@ return {
       },
       quote = { enabled = true },
       pipe_table = { enabled = true, style = "full" },
+      -- Inline/block math: converts $...$ to unicode via `latex2text` (pip install pylatexenc)
+      latex = { enabled = true, converter = "latex2text" },
       win_options = {
         conceallevel = { rendered = 2 },
       },
@@ -67,27 +69,5 @@ return {
       vim.g.mkdp_filetypes = { "markdown" }
       vim.g.mkdp_theme = "dark"
     end,
-  },
-
-  -- VimTeX
-  {
-    "lervag/vimtex",
-    ft = { "tex", "latex" },
-    init = function()
-      vim.g.vimtex_view_method = "zathura"
-      vim.g.vimtex_view_general_viewer = "okular"
-      vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
-      vim.g.vimtex_compiler_method = "latexmk"
-      vim.g.vimtex_quickfix_open_on_warning = 0
-      vim.g.vimtex_quickfix_mode = 0
-      vim.g.vimtex_quickfix_disable_warning_message = 1
-      vim.g.vimtex_syntax_conceal_disable = 1
-    end,
-  },
-
-  -- TeX conceal
-  {
-    "KeitaNakamura/tex-conceal.vim",
-    ft = { "tex", "latex" },
   },
 }

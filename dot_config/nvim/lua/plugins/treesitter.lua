@@ -59,7 +59,9 @@ return {
           end
         end,
 
-        additional_vim_regex_highlighting = false,
+        -- Layer vim syntax on top of Treesitter for LaTeX only, so tex-conceal.vim
+        -- can render \alpha->α etc. (the latex TS parser ships no conceal queries).
+        additional_vim_regex_highlighting = { "latex" },
       },
 
       indent = { enable = true },

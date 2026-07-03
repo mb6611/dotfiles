@@ -37,6 +37,7 @@ alias nate="git pull"
 alias n="nvim"
 alias p="pnpm"
 alias s="sis"
+alias sp="spotify_player"
 
 alias c="claude --dangerously-skip-permissions"
 alias clauded="claude --dangerously-skip-permissions"

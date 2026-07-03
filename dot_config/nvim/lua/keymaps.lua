@@ -2,75 +2,77 @@
 
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
+-- opts + a which-key label (so bindings show friendly names in the menu)
+local function d(desc)
+  return { noremap = true, silent = true, desc = desc }
+end
 
 -- Disable ex mode
-map("n", "q:", "<Nop>", opts)
+map("n", "q:", "<Nop>", d("Disable ex mode"))
 
 -- Delete to black hole register (non-buffer overwrite)
-map({ "n", "v" }, "<leader>d", '"_d', opts)
-map({ "n", "v" }, "<leader>D", '"_D', opts)
-map({ "n", "v" }, "<leader>c", '"_c', opts)
-map({ "n", "v" }, "<leader>C", '"_C', opts)
-map({ "n", "v" }, "<leader>x", '"_x', opts)
-map({ "n", "v" }, "<leader>X", '"_X', opts)
+map({ "n", "v" }, "<leader>d", '"_d', d("Blackhole delete"))
+map({ "n", "v" }, "<leader>D", '"_D', d("Blackhole delete to EOL"))
+map({ "n", "v" }, "<leader>c", '"_c', d("Blackhole change"))
+map({ "n", "v" }, "<leader>C", '"_C', d("Blackhole change to EOL"))
+map({ "n", "v" }, "<leader>x", '"_x', d("Blackhole delete char"))
+map({ "n", "v" }, "<leader>X", '"_X', d("Blackhole delete char before"))
 
 -- Insert mode escape alternatives
-map("i", "jc", "<Esc>", opts)
-map("i", "jf", "<Esc>:w<CR>", opts)
-map("i", "jj", "<Esc>:w<CR>", opts)
-map("i", "kk", "<Esc>:w<CR>", opts)
-map("i", "jk", "<Esc>:w<CR>", opts)
-map("i", "<C-c>", "<Esc>:w<CR>", opts)
+map("i", "jc", "<Esc>", d("Escape"))
+map("i", "jf", "<Esc>:w<CR>", d("Escape + save"))
+map("i", "jj", "<Esc>:w<CR>", d("Escape + save"))
+map("i", "kk", "<Esc>:w<CR>", d("Escape + save"))
+map("i", "jk", "<Esc>:w<CR>", d("Escape + save"))
+map("i", "<C-c>", "<Esc>:w<CR>", d("Escape + save"))
 
 -- Switch to alternate buffer
-map("n", "<C-e>", "<C-^>", opts)
+map("n", "<C-e>", "<C-^>", d("Alternate buffer"))
 
 -- Visual line
-map("n", "<leader>v", "V", opts)
+map("n", "<leader>v", "V", d("Select line (visual)"))
 
 -- Folding
-map("n", "<leader>f", "za", opts)
-map("v", "<leader>z", "zf", opts)
+map("n", "<leader>f", "za", d("Toggle fold"))
+map("v", "<leader>z", "zf", d("Create fold"))
 
--- Insert newline without entering insert mode
-map("n", "<leader>o", "o<Esc>k", opts)
-map("n", "<leader>O", "O<Esc>j", opts)
+-- Insert newline without entering insert mode (moved to <leader><leader>o to free <leader>o for Obsidian)
+map("n", "<leader><leader>o", "o<Esc>k", d("Insert blank line below"))
+map("n", "<leader><leader>O", "O<Esc>j", d("Insert blank line above"))
 
 -- Bracket jumping
-map({ "n", "v" }, "<leader>w", "%", opts)
+map({ "n", "v" }, "<leader>w", "%", d("Jump to matching bracket"))
 
 -- Fast vertical movement (Shift-j/k)
-map({ "n", "v" }, "J", "10j", opts)
-map({ "n", "v" }, "K", "10k", opts)
+map({ "n", "v" }, "J", "10j", d("Down 10 lines"))
+map({ "n", "v" }, "K", "10k", d("Up 10 lines"))
 
 -- Line moving (Alt+j/k)
-map("n", "<A-j>", ":m .+1<CR>==", opts)
-map("n", "<A-k>", ":m .-2<CR>==", opts)
-map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
-map("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
-map("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+map("n", "<A-j>", ":m .+1<CR>==", d("Move line down"))
+map("n", "<A-k>", ":m .-2<CR>==", d("Move line up"))
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", d("Move line down"))
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", d("Move line up"))
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", d("Move selection down"))
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", d("Move selection up"))
 
 -- Line moving (Meta+j/k alternative)
-map("n", "<M-j>", ":m .+1<CR>==", opts)
-map("n", "<M-k>", ":m .-2<CR>==", opts)
-map("i", "<M-j>", "<Esc>:m .+1<CR>==gi", opts)
-map("i", "<M-k>", "<Esc>:m .-2<CR>==gi", opts)
-map("v", "<M-j>", ":m '>+1<CR>gv=gv", opts)
-map("v", "<M-k>", ":m '<-2<CR>gv=gv", opts)
+map("n", "<M-j>", ":m .+1<CR>==", d("Move line down"))
+map("n", "<M-k>", ":m .-2<CR>==", d("Move line up"))
+map("i", "<M-j>", "<Esc>:m .+1<CR>==gi", d("Move line down"))
+map("i", "<M-k>", "<Esc>:m .-2<CR>==gi", d("Move line up"))
+map("v", "<M-j>", ":m '>+1<CR>gv=gv", d("Move selection down"))
+map("v", "<M-k>", ":m '<-2<CR>gv=gv", d("Move selection up"))
 
 -- Clipboard (macOS)
-map({ "n", "x" }, "<leader>y", ":w !pbcopy<CR><CR>", opts)
-map("n", "<leader>yy", ":%w !pbcopy<CR><CR>", opts)
+map({ "n", "x" }, "<leader>y", ":w !pbcopy<CR><CR>", d("Copy selection to clipboard"))
+map("n", "<leader>yy", ":%w !pbcopy<CR><CR>", d("Copy whole file to clipboard"))
 
 -- Telescope mappings defined in lua/plugins/telescope.lua
 
--- LaTeX shortcuts
-map("n", "<leader>bb", ":w<cr>:!pdflatex %:r.tex && bibtex %:r.aux && pdflatex %:r.tex && pdflatex %:r.tex && rm %:r.aux %:r.log %:r.blg %:r.bbl<cr>", opts)
-map("n", "<leader>bv", ":!zathura %:r.pdf > /dev/null 2>&1 &<cr><cr>", opts)
+-- LaTeX shortcuts moved to lua/plugins/latex.lua (colocated with VimTeX)
 
 -- Twilight toggle
-map("n", "<leader>z", "<cmd>Twilight<CR>", opts)
+map("n", "<leader>z", "<cmd>Twilight<CR>", d("Toggle Twilight"))
 
 -- Commands
 vim.api.nvim_create_user_command("W", "w", {})
@@ -109,7 +111,7 @@ end, { desc = "Terminal (vertical split)" })
 
 -- Exit terminal mode
 -- terminal escape
-vim.keymap.set("t", "xx", [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set("t", "xx", [[<C-\><C-n>]], { noremap = true, desc = "Terminal: exit to normal mode" })
 
 
 -- Diagnostic popup on demand

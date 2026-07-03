@@ -78,5 +78,10 @@ return {
     version = "v2.*",
     build = "make install_jsregexp",
     dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+      -- Enable auto-expanding snippets (fire as you type, no <Tab>) — required for
+      -- the math autosnippets (e.g. x/y -> \frac{x}{y}) from luasnip-latex-snippets.
+      require("luasnip").setup({ enable_autosnippets = true })
+    end,
   },
 }
