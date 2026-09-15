@@ -13,6 +13,8 @@ packages:
       - nvm
       - go # mason: gopls
       # shell (zshrc / aliases / functions)
+      - zsh-autosuggestions # sourced by .zshrc
+      - zsh-vi-mode # sourced by .zshrc
       - coreutils # alias ls='gls --color=auto'
       - xclip # pbcopy/pbpaste aliases (needs xquartz cask)
       - starship
@@ -76,6 +78,7 @@ packages:
       - snap
       - nginx
     casks:
+      - 1password-cli # .zshrc sources ~/.config/op/plugins.sh
       - font-jetbrains-mono-nerd-font
       - font-caskaydia-cove-nerd-font
       - cursor
