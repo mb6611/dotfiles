@@ -84,7 +84,9 @@ if [ -f '/Users/1unoe/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/1un
 
 #export OPENAI_API_KEY="$(security find-generic-password -s 'avante.nvim' -a '' -w)"
 export LINEAR_API_KEY="$(security find-generic-password -s 'linear-api-key' -a '' -w)"
-export NORTHLIGHT_NPM_TOKEN="$(security find-generic-password -s 'northlight-npm-token' -a '' -w)"
+
+# npm auth for @north-light/*: `npm login` writes ~/.npmrc and that is the only
+# source of truth. No NPM_TOKEN export here -- a stale one silently outranks it.
 export DISCORD_BOT_TOKEN="$(security find-generic-password -s 'DISCORD_BOT_TOKEN' -a 'openclaw' -w)"
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow \
@@ -154,8 +156,13 @@ eval "$(gw init zsh)"
 
 alias gam="/Users/1unoe/bin/gamadv-xtd3/gam"
 
+. "$HOME/.atuin/bin/env"
 command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh)"
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
 # OpenClaw Completion
 source "/Users/1unoe/.openclaw/completions/openclaw.zsh"
+
+# grove-managed aliases
+[ -f ~/.config/grove-aliases.zsh ] && source ~/.config/grove-aliases.zsh
+source /Users/1unoe/.config/op/plugins.sh

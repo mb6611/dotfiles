@@ -20,3 +20,6 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
+
+# bttcli (BetterTouchTool CLI, ships inside the app bundle)
+export PATH="$PATH:/Applications/BetterTouchTool.app/Contents/SharedSupport/bin"
