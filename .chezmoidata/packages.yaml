@@ -93,6 +93,7 @@ packages:
       - mactex-no-gui # pdflatex for the pandoc functions
       - session-manager-plugin
       - codex
+      - claude-code
       - block-goose
     npm:
       - "@crouton-kit/capture"
